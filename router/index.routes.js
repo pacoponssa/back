@@ -6,8 +6,8 @@ module.exports = (app) => {
     const rutasCliente = require("./cliente.routes");
     app.use("/cliente", rutasCliente);
 
-    const rutasCategorias = require("./categorias.routes");
-    app.use("/categorias", rutasCategorias);
+    const rutasCategoria = require("./categoria.routes");
+    app.use("/categoria", rutasCategoria);
 
     const rutasVenta = require("./venta.routes");
     app.use("/venta", rutasVenta);

@@ -4,14 +4,14 @@ const controladorImagen = require('../controllers/imagen.controllers');
 // CRUD
 
 // C Create
-Rutas.post('/imagen', controladorProducto.crearImagen );
+Rutas.post('/', controladorProducto.crearImagen );
 // R  Read
-Rutas.get('/imagen', controladorProducto.obtenerImagen );
-Rutas.get('/imagen/:id', controladorProducto.obtenerImagenPorId );
+Rutas.get('/', controladorProducto.obtenerImagen );
+Rutas.get('/:id', controladorProducto.obtenerImagenPorId );
 // Rutas.get('/producto/:disponible', controladorProducto.obtenerProductoDisponible);
 // U Update
-Rutas.put('/imagen/:id', controladorProducto.actualizarImagen );
+Rutas.put('/:id', controladorProducto.actualizarImagen );
 // D Delete
-Rutas.delete('/imagen/:id', controladorProducto.eliminarImagen );
+Rutas.delete('/:id', controladorProducto.eliminarImagen );
 
 module.exports = Rutas;

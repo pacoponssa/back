@@ -22,7 +22,7 @@ db.sequelize = sequelize;
 // importar los modelos
 db.producto = require("./producto.models")(sequelize, Sequelize);
 db.imagen = require("./imagen.models")(sequelize, Sequelize);
-db.categorias = require("./categorias.models")(sequelize, Sequelize);
+db.categoria = require("./categoria.models")(sequelize, Sequelize);
 db.venta = require("./venta.models")(sequelize, Sequelize);
 db.cliente = require("./cliente.models")(sequelize, Sequelize);
 db.ventaxProducto = require("./VentaxProducto.models")(sequelize, Sequelize);
@@ -36,10 +36,10 @@ db.producto.hasMany(db.imagen);
 db.imagen.belongsTo(db.producto);
 
 // relacion 1 a 1
-// una categorias pertenece a un solo producto
-db.categorias.belongsTo(db.producto);
-// un producto pertenece a una categorias
-db.producto.belongsTo(db.categorias);
+// una categoria pertenece a un solo producto
+db.categoria.belongsTo(db.producto);
+// un producto pertenece a una categoria
+db.producto.belongsTo(db.categoria);
 
 
 // relacion 1 a muchos

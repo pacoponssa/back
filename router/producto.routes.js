@@ -4,14 +4,14 @@ const controladorProducto = require('../controllers/producto.controllers');
 // CRUD
 
 // C Create
-Rutas.post('/producto', controladorProducto.crearProducto );
+Rutas.post('/', controladorProducto.crearProducto );
 // R  Read
-Rutas.get('/producto', controladorProducto.obtenerProductos );
-Rutas.get('/producto/:id', controladorProducto.obtenerProductoPorId );
+Rutas.get('/', controladorProducto.obtenerProductos );
+Rutas.get('/:id', controladorProducto.obtenerProductoPorId );
 // Rutas.get('/producto/:disponible', controladorProducto.obtenerProductoDisponible);
 // U Update
-Rutas.put('/producto/:id', controladorProducto.actualizarProducto );
+Rutas.put('/:id', controladorProducto.actualizarProducto );
 // D Delete
-Rutas.delete('/producto/:id', controladorProducto.eliminarProducto );
+Rutas.delete('/:id', controladorProducto.eliminarProducto );
 
 module.exports = Rutas;

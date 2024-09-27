@@ -69,10 +69,10 @@ exports.crearProducto = (req, res) => {
       DescripcionLarga: DescripcionLarga,
     })
     .then((registro) => {
-      res.status(201).json({
+      res.status(200).json({
         ok: true,
         msg: "Producto creado",
-        status: 201,
+        status: 200,
         data: registro,
       });
     })

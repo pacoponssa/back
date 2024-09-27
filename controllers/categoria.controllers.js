@@ -1,14 +1,14 @@
 const { where } = require("sequelize");
 const db = require("../models/index");
-const categorias = db.categorias;
+const categoria = db.categoria;
 
-exports.obtenerCategorias = (req, res) => {
-  producto.findAll()
+exports.obtenerCategoria = (req, res) => {
+  categoria.findAll()
     .then((registros) => {
 
       res.status(200).json({
         ok: true,
-        msg: "Listado de categorias",
+        msg: "Listado de categoria",
         status: 200,
         data: registros,
       });
@@ -16,32 +16,32 @@ exports.obtenerCategorias = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener los categorias",
+        msg: "Error al obtener los categoria",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.obtenerCategoriasPorId = (req, res) => {
+exports.obtenerCategoriaPorId = (req, res) => {
   // obtener el parametro id
   const _id = req.params.id;
 
-  categorias.findOne({
-      where: { idCategorias: _id },
+  categoria.findOne({
+      where: { idCategoria: _id },
     })
     .then((registro) => {
       if (registro) {
         res.status(200).json({
           ok: true,
-          msg: "Categorias encontrado",
+          msg: "Categoria encontrado",
           status: 200,
           data: registro,
         });
       } else {
         res.status(404).json({
           ok: false,
-          msg: "Categorias no encontrado",
+          msg: "Categoria no encontrado",
           status: 404,
           data: null,
         });
@@ -61,7 +61,7 @@ exports.obtenerCategoriasPorId = (req, res) => {
 exports.crearCategoria = (req, res) => {
   const { descripcion } = req.body;
 
-  categorias.create({
+  categoria.create({
     descripcion: descripcion
     })
     .then((registro) => {
@@ -82,15 +82,15 @@ exports.crearCategoria = (req, res) => {
     });
 };
 
-exports.actualizarCategorias = (req, res) => {
+exports.actualizarCategoria = (req, res) => {
     const _id = req.params.id;
-    const { categorias } = req.body;
-    categorias.update(
+    const { categoria } = req.body;
+    categoria.update(
         {
             descripcion: descripcion
         },
         {
-          where: { idCategorias: _id },
+          where: { idCategoria: _id },
         }
       )
       .then((registro) => {
@@ -114,8 +114,8 @@ exports.actualizarCategorias = (req, res) => {
 exports.eliminarCategoria = (req, res) => {
     const _id = req.params.id;
 
-    categorias.destroy({
-        where: { idCategorias: _id },
+    categoria.destroy({
+        where: { idCategoria: _id },
       })
       .then((registro) => {
         res.status(200).json({
