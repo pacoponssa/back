@@ -13,7 +13,7 @@ app.use(express.json());
 const db = require("./models/index");
 // conectar al motor de DB
 // para sincronizar cambios en la DB, usar:   .sync({alter:true})
-db.sequelize.sync() 
+db.sequelize.sync()  
   .then(() => {
     console.log("Base de datos conectada");
   })

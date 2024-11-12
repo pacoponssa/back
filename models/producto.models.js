@@ -30,9 +30,19 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
 
-        DescripcionLarga: {
-            type: Sequelize.STRING,
-            default: false,
+        // DescripcionLarga: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
+
+        disponible: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
+
+        imagen: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
 
       

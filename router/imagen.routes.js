@@ -2,16 +2,16 @@ const Rutas = require('express').Router();
 const controladorImagen = require('../controllers/imagen.controllers');
 
 // CRUD
-
 // C Create
-Rutas.post('/', controladorProducto.crearImagen );
+Rutas.post('/', controladorImagen.crearImagen );
 // R  Read
-Rutas.get('/', controladorProducto.obtenerImagen );
-Rutas.get('/:id', controladorProducto.obtenerImagenPorId );
-// Rutas.get('/producto/:disponible', controladorProducto.obtenerProductoDisponible);
+Rutas.get('/', controladorImagen.obtenerImagen );
+Rutas.get('/:id', controladorImagen.obtenerImagenPorId );
+Rutas.get('/prod/:id', controladorImagen.obtenerImagenPorProd );
+
 // U Update
-Rutas.put('/:id', controladorProducto.actualizarImagen );
+Rutas.put('/:id', controladorImagen.actualizarImagen );
 // D Delete
-Rutas.delete('/:id', controladorProducto.eliminarImagen );
+Rutas.delete('/:id', controladorImagen.eliminarImagen );
 
 module.exports = Rutas;

@@ -58,12 +58,47 @@ exports.obtenerImagenPorId = (req, res) => {
 };
 
 
+exports.obtenerImagenPorProd = (req, res) => {
+  // obtener el parametro id
+  const _id = req.params.id;
+  imagen.findAll({
+      where: { ProductoIdProducto: _id },
+    })
+    .then((registro) => {
+      if (registro) {
+        res.status(200).json({
+          ok: true,
+          msg: "Imagen encontrada",
+          status: 200,
+          data: registro,
+        });
+      } else {
+        res.status(404).json({
+          ok: false,
+          msg: "Imagen no encontrada",
+          status: 404,
+          data: null,
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        ok: false,
+        msg: "Error al obtener la imagen",
+        status: 500,
+        data: error,
+      });
+    });
+};
+
+
 exports.crearImagen = (req, res) => {
-  const { ubicacion, nroOrden } = req.body;
+  const { ubicacion, nroOrden, ProductoIdProducto } = req.body;
 
   imagen.create({
        ubicacion: ubicacion,
-       nroOrden: nroOrden
+       nroOrden: nroOrden,
+       ProductoIdProducto: ProductoIdProducto
     })
     .then((registro) => {
       res.status(201).json({
@@ -85,11 +120,12 @@ exports.crearImagen = (req, res) => {
 
 exports.actualizarImagen = (req, res) => {
     const _id = req.params.id;
-    const { ubicacion, nroOrden  } = req.body;
+    const { ubicacion, nroOrden, ProductoIdProducto  } = req.body;
     imagen.update(
         {
             ubicacion: ubicacion,
-            nroOrden: nroOrden
+            nroOrden: nroOrden,
+            ProductoIdProducto: ProductoIdProducto
         },
         {
           where: { idImagen: _id },

@@ -6,14 +6,17 @@ module.exports = (app) => {
     const rutasCliente = require("./cliente.routes");
     app.use("/cliente", rutasCliente);
 
-    const rutasCategoria = require("./categoria.routes");
-    app.use("/categoria", rutasCategoria);
+    const rutasCategorias = require("./categorias.routes");
+    app.use("/categorias", rutasCategorias);
 
     const rutasVenta = require("./venta.routes");
     app.use("/venta", rutasVenta);
 
     const rutasCarrito = require("./carrito.routes");
     app.use("/carrito", rutasCarrito);
+
+    const rutasImagen = require("./imagen.routes");
+    app.use("/imagen", rutasImagen);
  
    
 };

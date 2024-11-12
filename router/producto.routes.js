@@ -8,6 +8,7 @@ Rutas.post('/', controladorProducto.crearProducto );
 // R  Read
 Rutas.get('/', controladorProducto.obtenerProductos );
 Rutas.get('/:id', controladorProducto.obtenerProductoPorId );
+Rutas.get('/descripcion/:idProducto', controladorProducto.obtenerProductoPorId );
 // Rutas.get('/producto/:disponible', controladorProducto.obtenerProductoDisponible);
 // U Update
 Rutas.put('/:id', controladorProducto.actualizarProducto );

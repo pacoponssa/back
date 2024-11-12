@@ -18,7 +18,12 @@ module.exports = (sequelize, Sequelize) => {
           nroOrden: {
             type: DataTypes.INTEGER,
             allowNull: false,
-        },
+        }
+
+        // ProductoIdProducto: {
+        //   type: DataTypes.INTEGER,
+        //   allowNull: false
+        // }
               
     });
 

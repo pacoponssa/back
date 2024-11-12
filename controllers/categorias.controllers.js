@@ -1,14 +1,14 @@
 const { where } = require("sequelize");
 const db = require("../models/index");
-const cliente = db.cliente;
+const categorias = db.categorias;
 
-exports.obtenerClientes = (req, res) => {
-  cliente.findAll()
+exports.obtenerCategorias = (req, res) => {
+  categorias.findAll()
     .then((registros) => {
 
       res.status(200).json({
         ok: true,
-        msg: "Listado de clientes",
+        msg: "Listado de categorias",
         status: 200,
         data: registros,
       });
@@ -16,32 +16,32 @@ exports.obtenerClientes = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener los clientes",
+        msg: "Error al obtener los categorias",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.obtenerClientePorId = (req, res) => {
+exports.obtenerCategoriasPorId = (req, res) => {
   // obtener el parametro id
   const _id = req.params.id;
 
-  cliente.findOne({
-      where: { idCliente: _id },
+  categorias.findOne({
+      where: { idCategorias: _id },
     })
     .then((registro) => {
       if (registro) {
         res.status(200).json({
           ok: true,
-          msg: "Cliente encontrado",
+          msg: "Categorias encontrado",
           status: 200,
           data: registro,
         });
       } else {
         res.status(404).json({
           ok: false,
-          msg: "Cliente no encontrado",
+          msg: "Categorias no encontrado",
           status: 404,
           data: null,
         });
@@ -50,7 +50,7 @@ exports.obtenerClientePorId = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener el cliente",
+        msg: "Error al obtener la categoria",
         status: 500,
         data: error,
       });
@@ -58,21 +58,16 @@ exports.obtenerClientePorId = (req, res) => {
 };
 
 
-exports.crearCliente = (req, res) => {
-  const { nombre, apellido, email, contraseña, telefono, usuario } = req.body;
+exports.crearCategoria = (req, res) => {
+  const { descripcion } = req.body;
 
-  cliente.create({
-      nombre: nombre,
-      apellido: apellido,
-      email: email,
-      contraseña: contraseña,
-      telefono: telefono,
-      usuario: usuario,
+  categorias.create({
+    descripcion: descripcion
     })
     .then((registro) => {
       res.status(201).json({
         ok: true,
-        msg: "Cliente creado",
+        msg: "Categoria creada",
         status: 201,
         data: registro,
       });
@@ -80,33 +75,28 @@ exports.crearCliente = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al crear el cliente",
+        msg: "Error al crear la categoria",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.actualizarCliente = (req, res) => {
+exports.actualizarCategorias = (req, res) => {
     const _id = req.params.id;
-    const { nombre, apellido, email, contraseña, telefono, usuario } = req.body;
-    cliente.update(
+    const { descripcion } = req.body;
+    categorias.update(
         {
-            nombre: nombre,
-            apellido: apellido,
-            email: email,
-            contraseña: contraseña,
-            telefono: telefono,
-            usuario: usuario
+            descripcion: descripcion
         },
         {
-          where: { idCliente: _id },
+          where: { idCategorias: _id },
         }
       )
       .then((registro) => {
         res.status(200).json({
           ok: true,
-          msg: "Cliente actualizado",
+          msg: "Categoria actualizada",
           status: 200,
           data: registro,
         });
@@ -114,23 +104,23 @@ exports.actualizarCliente = (req, res) => {
       .catch((error) => {
         res.status(500).json({
           ok: false,
-          msg: "Error al actualizar el cliente",
+          msg: "Error al actualizar la categoria",
           status: 500,
           data: error,
         });
       });
 };
 
-exports.eliminarCliente = (req, res) => {
+exports.eliminarCategoria = (req, res) => {
     const _id = req.params.id;
 
-    cliente.destroy({
-        where: { idCliente: _id },
+    categorias.destroy({
+        where: { idCategorias: _id },
       })
       .then((registro) => {
         res.status(200).json({
           ok: true,
-          msg: "Cliente eliminado",
+          msg: "Categoria eliminada",
           status: 200,
           data: registro,
         });
@@ -138,7 +128,7 @@ exports.eliminarCliente = (req, res) => {
       .catch((error) => {
         res.status(500).json({
           ok: false,
-          msg: "Error al eliminar el cliente",
+          msg: "Error al eliminar la categoria",
           status: 500,
           data: error,
         });

@@ -1,20 +1,21 @@
 module.exports = (sequelize, Sequelize) => {
 
     const { DataTypes } = Sequelize;
-    const Carrito = sequelize.define("Carrito", {
+    const Categorias = sequelize.define("Categorias", {
 
-        idCarrito: {
+        idCategorias: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
           },
          
-        total: {
-            type: DataTypes.INTEGER,
+        descripcion: {
+            type: DataTypes.STRING(100),
             allowNull: true,
         }
         
     });
 
-    return Carrito;
+    return Categorias;
 }
+

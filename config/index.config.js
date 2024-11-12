@@ -4,7 +4,7 @@ module.exports =  {
         user: 'root',
         password: 'Davidbowie69',
         port: 3306,
-        schema: 'prueba',
+        schema: 'pastasart',
         dialect: 'mysql',
     }
     
