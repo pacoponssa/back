@@ -1,14 +1,14 @@
 const { where } = require("sequelize");
 const db = require("../models/index");
-const categorias = db.categorias;
+const cupones = db.cupon;
 
-exports.obtenerCategorias = (req, res) => {
-  categorias
+exports.obtenerCupones = (req, res) => {
+  cupones
     .findAll()
     .then((registros) => {
       res.status(200).json({
         ok: true,
-        msg: "Listado de categorias",
+        msg: "Listado de cupones",
         status: 200,
         data: registros,
       });
@@ -16,33 +16,33 @@ exports.obtenerCategorias = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener los categorias",
+        msg: "Error al obtener los cupones",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.obtenerCategoriasPorId = (req, res) => {
+exports.obtenerCuponesPorId = (req, res) => {
   // obtener el parametro id
   const _id = req.params.id;
 
-  categorias
+  cupones
     .findOne({
-      where: { idCategorias: _id },
+      where: { idCupon: _id },
     })
     .then((registro) => {
       if (registro) {
         res.status(200).json({
           ok: true,
-          msg: "Categorias encontrado",
+          msg: "Cupon encontrado",
           status: 200,
           data: registro,
         });
       } else {
         res.status(404).json({
           ok: false,
-          msg: "Categorias no encontrado",
+          msg: "Cupon no encontrado",
           status: 404,
           data: null,
         });
@@ -51,24 +51,25 @@ exports.obtenerCategoriasPorId = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener la categoria",
+        msg: "Error al obtener el cupon",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.crearCategoria = (req, res) => {
-  const { descripcion } = req.body;
+exports.crearCupon = (req, res) => {
+  const { codigo, descuento } = req.body;
 
-  categorias
+  cupones
     .create({
-      descripcion: descripcion,
+      codigo: codigo,
+      descuento: descuento,
     })
     .then((registro) => {
       res.status(201).json({
         ok: true,
-        msg: "Categoria creada",
+        msg: "Cupon creado",
         status: 201,
         data: registro,
       });
@@ -76,29 +77,30 @@ exports.crearCategoria = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al crear la categoria",
+        msg: "Error al crear la cupon",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.actualizarCategorias = (req, res) => {
+exports.actualizarCupon = (req, res) => {
   const _id = req.params.id;
-  const { descripcion } = req.body;
-  categorias
+  const { codigo, descuento } = req.body;
+  cupones
     .update(
       {
-        descripcion: descripcion,
+        codigo: codigo,
+        descuento: descuento,
       },
       {
-        where: { idCategorias: _id },
+        where: { idCupon: _id },
       }
     )
     .then((registro) => {
       res.status(200).json({
         ok: true,
-        msg: "Categoria actualizada",
+        msg: "Cupon actualizado",
         status: 200,
         data: registro,
       });
@@ -106,24 +108,24 @@ exports.actualizarCategorias = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al actualizar la categoria",
+        msg: "Error al actualizar la cupon",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.eliminarCategoria = (req, res) => {
+exports.eliminarCupon = (req, res) => {
   const _id = req.params.id;
 
-  categorias
+  cupones
     .destroy({
-      where: { idCategorias: _id },
+      where: { idCupon: _id },
     })
     .then((registro) => {
       res.status(200).json({
         ok: true,
-        msg: "Categoria eliminada",
+        msg: "Cupon eliminado",
         status: 200,
         data: registro,
       });
@@ -131,7 +133,43 @@ exports.eliminarCategoria = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al eliminar la categoria",
+        msg: "Error al eliminar el cupon",
+        status: 500,
+        data: error,
+      });
+    });
+};
+
+
+exports.obtenerCuponesPorCodigo = (req, res) => {
+  // obtener el parametro id
+  const _codigo = req.params.codigo;
+
+  cupones
+    .findOne({
+      where: { codigo: _codigo },
+    })
+    .then((registro) => {
+      if (registro) {
+        res.status(200).json({
+          ok: true,
+          msg: "Cupon encontrado",
+          status: 200,
+          data: registro,
+        });
+      } else {
+        res.status(404).json({
+          ok: false,
+          msg: "Cupon no encontrado",
+          status: 404,
+          data: null,
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        ok: false,
+        msg: "Error al obtener el cupon",
         status: 500,
         data: error,
       });

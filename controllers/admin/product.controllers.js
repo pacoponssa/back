@@ -1,77 +1,27 @@
 const { where, Op } = require("sequelize");
-const db = require("../models/index");
+const db = require("../../models/index");
 const producto = db.producto;
 
 exports.obtenerProductos = (req, res) => {
-  // Parámetros
-  const pagina = parseInt(req.query.pagina);
-  const cantidad = parseInt(req.query.cantidad);
-  const text = req.query.searchTerm;
-  const categories = parseInt(req.query.categories);
-  const rangoPrecio = req.query.rangoPrecio;
-  const verDisponibles = req.query.verDisponibles === 'true'; // Convertir a booleano
-
-  console.log("llega a lista", rangoPrecio);
-
-  let whereFilter = {};
-
-  if (
-    (text && text.length > 0) ||
-    (categories && categories != 0) ||
-    (rangoPrecio && rangoPrecio.length > 1) ||
-    verDisponibles
-  ) {
-    whereFilter[Op.and] = [];
-
-    if (text && text.length > 0) {
-      whereFilter[Op.and].push({
-        nombre: { [Op.like]: `%${text}%` },
+    producto.findAll()
+    .then((registros) => {
+      res.status(200).json({
+        ok: true,
+        msg: "Listado de productos",
+        status: 200,
+        data: registros,
       });
-    }
-
-    if (categories && categories > 0) {
-      whereFilter[Op.and].push({
-        CategoriaIdCategorias: categories,
+    })
+    .catch((error) => {
+      res.status(500).json({
+        ok: false,
+        msg: "Error al obtener los productos",
+        status: 500,
+        data: error,
       });
-    }
-
-    if (rangoPrecio && rangoPrecio.length > 1) {
-      const rangoPrecioVector = rangoPrecio.split(",");
-      whereFilter[Op.and].push({
-        precio: { [Op.between]: [parseInt(rangoPrecioVector[0]), parseInt(rangoPrecioVector[1])] },
-      });
-    }
-
-    if (verDisponibles) {
-      whereFilter[Op.and].push({
-        disponible: true, // Filtra solo los productos disponibles
-      });
-    }
-  }
-
-  producto.findAndCountAll({
-    where: whereFilter,
-    offset: (pagina - 1) * cantidad,
-    limit: cantidad
-  })
-  .then((registros) => {
-    res.status(200).json({
-      ok: true,
-      msg: "Listado de productos",
-      status: 200,
-      data: registros,
     });
-  })
-  .catch((error) => {
-    res.status(500).json({
-      ok: false,
-      msg: "Error al obtener los productos",
-      status: 500,
-      data: error,
-    });
-  });
-};
-
+    };
+    
 
 
 
@@ -122,7 +72,7 @@ exports.crearProducto = (req, res) => {
       disponible: disponible,
       imagen: imagen,
       caracteristicas: caracteristicas,
-      especificaciones: especificaciones
+          especificaciones: especificaciones,
     })
     .then((registro) => {
       res.status(200).json({
@@ -155,7 +105,7 @@ exports.actualizarProducto = (req, res) => {
           disponible: disponible,
           imagen: imagen,
           caracteristicas: caracteristicas,
-          especificaciones: especificaciones
+              especificaciones: especificaciones,
         },
         {
           where: { idProducto: _id },
@@ -203,34 +153,3 @@ exports.eliminarProducto = (req, res) => {
       });
 };
 
-// 
-
-// exports.actualizarCaracteristicas = (req, res) => {
-//   const _id = req.params.id;
-//   const { caracteristicas, especificaciones } = req.body;
-//   producto.update(
-//       {
-//         caracteristicas: caracteristicas,
-//         especificaciones: especificaciones
-//       },
-//       {
-//         where: { idProducto: _id },
-//       }
-//     )
-//     .then((registro) => {
-//       res.status(200).json({
-//         ok: true,
-//         msg: "Producto actualizado",
-//         status: 200,
-//         data: registro,
-//       });
-//     })
-//     .catch((error) => {
-//       res.status(500).json({
-//         ok: false,
-//         msg: "Error al actualizar el producto",
-//         status: 500,
-//         data: error,
-//       });
-//     });
-// };

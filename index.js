@@ -9,11 +9,17 @@ const port = 3000
 // permitir que lleguen los json por las url
 app.use(express.json());
 
+// Rutas de autenticación
+const authRoutes = require('./router/auth.routes');
+app.use('/auth', authRoutes);
+
+//app.use('/auth-clientes', authRoutes);
+
 // llamar a base de datos
 const db = require("./models/index");
 // conectar al motor de DB
 // para sincronizar cambios en la DB, usar:   .sync({alter:true})
-db.sequelize.sync()  
+db.sequelize.sync({alter:true})  
   .then(() => {
     console.log("Base de datos conectada");
   })

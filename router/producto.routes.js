@@ -1,4 +1,5 @@
 const Rutas = require('express').Router();
+const { authenticateToken } = require('../auth/auth.middleware');  // Importa el middleware de autenticación
 const controladorProducto = require('../controllers/producto.controllers');
 
 // CRUD

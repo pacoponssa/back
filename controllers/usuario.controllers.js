@@ -1,14 +1,14 @@
 const { where } = require("sequelize");
 const db = require("../models/index");
-const categorias = db.categorias;
+const usuario = db.usuario;
 
-exports.obtenerCategorias = (req, res) => {
-  categorias
+exports.obtenerUsuarios = (req, res) => {
+  usuario
     .findAll()
     .then((registros) => {
       res.status(200).json({
         ok: true,
-        msg: "Listado de categorias",
+        msg: "Listado de usuario",
         status: 200,
         data: registros,
       });
@@ -16,33 +16,33 @@ exports.obtenerCategorias = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener los categorias",
+        msg: "Error al obtener los usuario",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.obtenerCategoriasPorId = (req, res) => {
+exports.obtenerUsuarioPorId = (req, res) => {
   // obtener el parametro id
   const _id = req.params.id;
 
-  categorias
+  usuario
     .findOne({
-      where: { idCategorias: _id },
+      where: { idUsuario: _id },
     })
     .then((registro) => {
       if (registro) {
         res.status(200).json({
           ok: true,
-          msg: "Categorias encontrado",
+          msg: "Usuario encontrado",
           status: 200,
           data: registro,
         });
       } else {
         res.status(404).json({
           ok: false,
-          msg: "Categorias no encontrado",
+          msg: "Usuario no encontrado",
           status: 404,
           data: null,
         });
@@ -51,24 +51,25 @@ exports.obtenerCategoriasPorId = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al obtener la categoria",
+        msg: "Error al obtener el Usuario",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.crearCategoria = (req, res) => {
-  const { descripcion } = req.body;
+exports.crearUsuario = (req, res) => {
+  const { username, password } = req.body;
 
-  categorias
+  usuario
     .create({
-      descripcion: descripcion,
+        username: username,
+      password: password,
     })
     .then((registro) => {
       res.status(201).json({
         ok: true,
-        msg: "Categoria creada",
+        msg: "Usuario creado",
         status: 201,
         data: registro,
       });
@@ -76,29 +77,30 @@ exports.crearCategoria = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al crear la categoria",
+        msg: "Error al crear el Usuario",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.actualizarCategorias = (req, res) => {
+exports.actualizarUsuario = (req, res) => {
   const _id = req.params.id;
-  const { descripcion } = req.body;
-  categorias
+  const { username, password } = req.body;
+  usuario
     .update(
       {
-        descripcion: descripcion,
+        username: username,
+        password: password,
       },
       {
-        where: { idCategorias: _id },
+        where: { idUsuario: _id },
       }
     )
     .then((registro) => {
       res.status(200).json({
         ok: true,
-        msg: "Categoria actualizada",
+        msg: "Usuario actualizado",
         status: 200,
         data: registro,
       });
@@ -106,24 +108,24 @@ exports.actualizarCategorias = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al actualizar la categoria",
+        msg: "Error al actualizar el Usuario",
         status: 500,
         data: error,
       });
     });
 };
 
-exports.eliminarCategoria = (req, res) => {
+exports.eliminarUsuario = (req, res) => {
   const _id = req.params.id;
 
-  categorias
+  usuario
     .destroy({
-      where: { idCategorias: _id },
+      where: { idUsuario: _id },
     })
     .then((registro) => {
       res.status(200).json({
         ok: true,
-        msg: "Categoria eliminada",
+        msg: "Usuario eliminado",
         status: 200,
         data: registro,
       });
@@ -131,7 +133,7 @@ exports.eliminarCategoria = (req, res) => {
     .catch((error) => {
       res.status(500).json({
         ok: false,
-        msg: "Error al eliminar la categoria",
+        msg: "Error al eliminar el Usuario",
         status: 500,
         data: error,
       });

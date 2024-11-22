@@ -1,17 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
   const { DataTypes } = Sequelize;
-  const Categorias = sequelize.define("Categorias", {
-    idCategorias: {
+  const Cupones = sequelize.define("Cupones", {
+    idCupon: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-
-    descripcion: {
+    codigo: {
       type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    descuento: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   });
 
-  return Categorias;
+  return Cupones;
 };

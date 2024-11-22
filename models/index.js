@@ -28,6 +28,15 @@ db.cliente = require("./cliente.models")(sequelize, Sequelize);
 db.ventaxProducto = require("./VentaxProducto.models")(sequelize, Sequelize);
 db.carrito = require("./carrito.models")(sequelize, Sequelize);
 db.productoxCarrito = require("./ProductoxCarrito.models")(sequelize, Sequelize);
+db.cupon = require("./cupon.models")(sequelize, Sequelize);
+db.comentarios = require("./comentarios.models")(sequelize, Sequelize);
+
+// relacion 1 a muchos
+// un producto puede tener muchas comentarios
+db.producto.hasMany(db.comentarios);
+// un comentarios pertenece a un solo producto
+db.comentarios.belongsTo(db.producto);
+
 
 // relacion 1 a muchos
 // un producto puede tener muchas imagenes
